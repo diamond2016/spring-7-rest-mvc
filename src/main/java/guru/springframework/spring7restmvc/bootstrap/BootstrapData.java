@@ -93,10 +93,11 @@ public class BootstrapData implements CommandLineRunner {
                     .updateDate(LocalDateTime.now())
                     .build();
 
-            customerRepository.saveAll(List.of(customer1, customer2, customer3));
+            var listCustomers = List.of(customer1, customer2, customer3);
+            if (listCustomers.contains(null)) {
+                throw new IllegalArgumentException("Error in creating customers from build()");
+            }
+            customerRepository.saveAll(listCustomers);
         }
-
     }
-
-
 }

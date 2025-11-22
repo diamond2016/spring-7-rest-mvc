@@ -89,29 +89,28 @@ public class BeerServiceJPA implements BeerService {
         if (beerId == null) {
             throw new IllegalArgumentException("Eror, no ID provided to convert BeerDTO to Beer entity");
         }
-        var foundBeer = beerRepository.findById(beerId);
         
-        if (foundBeer.isEmpty()) {
+        var foundBeer = beerRepository.findById(beerId).get();
+        if (foundBeer == null) {
             return Optional.empty();
         }
         else { 
-            var beerToUpdate = foundBeer.get();
             if (StringUtils.hasText(beer.getBeerName())) {
-                beerToUpdate.setBeerName(beer.getBeerName());
+                foundBeer.setBeerName(beer.getBeerName());
             }   
             if (beer.getBeerStyle() != null){
-                beerToUpdate.setBeerStyle(beer.getBeerStyle());
+                foundBeer.setBeerStyle(beer.getBeerStyle());
             }
             if (StringUtils.hasText(beer.getUpc())){
-                beerToUpdate.setUpc(beer.getUpc());
+                foundBeer.setUpc(beer.getUpc());
             }
             if (beer.getPrice() != null){
-                beerToUpdate.setPrice(beer.getPrice());
+                foundBeer.setPrice(beer.getPrice());
             }
             if (beer.getQuantityOnHand() != null){
-                beerToUpdate.setQuantityOnHand(beer.getQuantityOnHand());
+                foundBeer.setQuantityOnHand(beer.getQuantityOnHand());
             }
-            return Optional.of(beerMapper.beerToBeerDto(beerRepository.save(beerToUpdate)));
+            return Optional.of(beerMapper.beerToBeerDto(beerRepository.save(foundBeer)));
         }
     }
 }
