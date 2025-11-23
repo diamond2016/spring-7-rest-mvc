@@ -60,8 +60,8 @@ public class BootstrapData implements CommandLineRunner {
                     .createdDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
-        var listBeers = List.of(beer1, beer2, beer3);
-        if (listBeers.contains(null)) {
+        List<Beer> listBeers = List.of(beer1, beer2, beer3);
+        if (listBeers == null) {
             throw new IllegalArgumentException("Eror in creating beers from build()");
         }
         beerRepository.saveAll(listBeers);
@@ -93,8 +93,8 @@ public class BootstrapData implements CommandLineRunner {
                     .updateDate(LocalDateTime.now())
                     .build();
 
-            var listCustomers = List.of(customer1, customer2, customer3);
-            if (listCustomers.contains(null)) {
+            List<Customer> listCustomers = List.of(customer1, customer2, customer3);
+            if (listCustomers == null) {
                 throw new IllegalArgumentException("Error in creating customers from build()");
             }
             customerRepository.saveAll(listCustomers);

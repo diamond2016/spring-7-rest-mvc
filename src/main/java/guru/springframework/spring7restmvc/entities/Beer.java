@@ -47,7 +47,8 @@ public class Beer {
     @Column(length = 50)
     private String beerName;
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
     private BeerStyle beerStyle;
 
     @NotNull
