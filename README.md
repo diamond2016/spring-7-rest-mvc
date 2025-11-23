@@ -3,7 +3,7 @@
 
 In this repo I wil follow with my updates, the repo of the course: Spring Framework 7: Beginner to Guru.
 
-The original repository of the course is here: [Spring Framework 7 - Beginner to Guru](https://github.com/springframeworkguru/spring-7-rest-mvc).
+The original repository of the course is here: [Spring Framework 7 - Beginner to Guru](https://github.com/springframeworkguru/spring-7-rest-mvc). Forked at branch: `75-db-create-scripts`.
 
 This is the link to the course: [Udemy course](https://www.udemy.com/share/1080GW3@Kt5Zs-OWJSp2b2ZHRUpH1uPg-WrZPmFawYMVDRlhg-N9-eS1aDN0wpl9iPkCEExT/).
 
