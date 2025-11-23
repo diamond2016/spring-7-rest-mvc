@@ -66,9 +66,7 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public Boolean deleteCustomerById(UUID customerId) {
-        if (customerId == null) {
-            throw new IllegalArgumentException("Eror, no ID provided to get CustomerDTO");
-        }
+
         if(customerRepository.existsById(customerId)){
             customerRepository.deleteById(customerId);
             return true;
@@ -82,16 +80,17 @@ public class CustomerServiceJPA implements CustomerService {
         if (customerId == null) {
             throw new IllegalArgumentException("Eror, no ID provided to convert CustomerDTO to Customer entity");
         }
-        customerRepository.findById(customerId).ifPresentOrElse(foundCustomer -> {
-            if (StringUtils.hasText(customer.getName())){
+        var foundCustomer = customerRepository.findById(customerId).get();
+        if (foundCustomer == null) {
+            return Optional.empty();
+        }
+        else {
+            if (StringUtils.hasText(customer.getName())) {
                 foundCustomer.setName(customer.getName());
             }
-            atomicReference.set(Optional.of(customerMapper
-                    .customerToCustomerDto(customerRepository.save(foundCustomer))));
-        }, () -> {
-            atomicReference.set(Optional.empty());
-        });
-
-        return atomicReference.get();
+        }
+        
+        return Optional.ofNullable(customerMapper
+                .customerToCustomerDto(customerRepository.save(foundCustomer)));
     }
 }
