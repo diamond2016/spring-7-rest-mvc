@@ -41,6 +41,9 @@ public class Customer {
     @Version
     private Integer version;
 
+    @Column(length = 255)
+    private String email;
+
     @CreationTimestamp
     private LocalDateTime createdDate;
     @UpdateTimestamp
