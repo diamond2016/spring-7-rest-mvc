@@ -5,7 +5,7 @@ In this repo I wil follow with my updates, the repo of the course: Spring Framew
 
 The original repository of the course is here: [Spring Framework 7 - Beginner to Guru](https://github.com/springframeworkguru/spring-7-rest-mvc).
 
-This is the link to the course: [Udemy course]](https://www.udemy.com/course/spring-framework-6-beginner-to-guru/?referralCode=2BD0B7B7B6B511D699A9).
+This is the link to the course: [Udemy course](https://www.udemy.com/share/1080GW3@Kt5Zs-OWJSp2b2ZHRUpH1uPg-WrZPmFawYMVDRlhg-N9-eS1aDN0wpl9iPkCEExT/).
 
 
 This is the architecture up to now:
