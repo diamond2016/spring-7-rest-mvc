@@ -22,7 +22,6 @@ This is the architecture up to now:
 
 ### Main activities 
 - 20.11.2025 Introduced MySql and a new profile to switch between H2 or MYSQL
-
 - 22.11.2025 Due to the new release of Spring Boot 4 and Spring framework 7 I'll create a new project and leave the previous in this repo: [spring6-rest-mvc](https://github.com/diamond2016/spring6-rest-mvc).
-
 - 23.11.2025 Start with migrations (delta-db) using FlyWay.
+- 24.11.2025 introduced Testcontainers (use Docker in tests with MySql)
