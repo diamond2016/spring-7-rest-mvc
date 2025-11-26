@@ -43,4 +43,7 @@ Notes / Next steps
 4. Suggested commit strategy:
    - Move one logical package/file at a time, run targeted tests (`./mvnw -Dtest=FooTest test`), regenerate MapStruct if mappers are affected, then run full tests and commit.
 
+   Status update:
+   - Model packages verified: `model.entity` and `model.dto` are present and their classes (`Customer`, `Beer`, `CustomerDTO`, `BeerDTO`, etc.) have correct package declarations. No further moves required for model classes at this time.
+
 If you want me to actually move files now, tell me which files to move or confirm that you want the agent to apply the conservative plan (verify-only, regenerate, run tests, prepare PR draft).
