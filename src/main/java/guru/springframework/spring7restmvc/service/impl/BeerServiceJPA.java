@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import guru.springframework.spring7restmvc.mappers.BeerMapper;
+import guru.springframework.spring7restmvc.mapper.BeerMapper;
 import guru.springframework.spring7restmvc.model.dto.BeerDTO;
 import guru.springframework.spring7restmvc.model.entity.Beer;
-import guru.springframework.spring7restmvc.repositories.BeerRepository;
+import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.util.List;

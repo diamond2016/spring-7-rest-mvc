@@ -17,6 +17,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.repository.BeerRepository;
 
 
 @Testcontainers

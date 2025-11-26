@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.mappers;
+package guru.springframework.spring7restmvc.mapper;
 
 import org.mapstruct.Mapper;
 

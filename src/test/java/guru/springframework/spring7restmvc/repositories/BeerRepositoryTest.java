@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.repository.BeerRepository;
 
 import java.math.BigDecimal;
 

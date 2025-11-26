@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import guru.springframework.spring7restmvc.mappers.CustomerMapper;
+import guru.springframework.spring7restmvc.mapper.CustomerMapper;
 import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
 import guru.springframework.spring7restmvc.model.entity.Customer;
-import guru.springframework.spring7restmvc.repositories.CustomerRepository;
+import guru.springframework.spring7restmvc.repository.CustomerRepository;
 import guru.springframework.spring7restmvc.service.CustomerService;
 
 import java.util.List;

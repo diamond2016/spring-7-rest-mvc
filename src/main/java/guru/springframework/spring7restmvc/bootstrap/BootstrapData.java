@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.model.entity.Customer;
-import guru.springframework.spring7restmvc.repositories.BeerRepository;
-import guru.springframework.spring7restmvc.repositories.CustomerRepository;
+import guru.springframework.spring7restmvc.repository.BeerRepository;
+import guru.springframework.spring7restmvc.repository.CustomerRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

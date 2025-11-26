@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import guru.springframework.spring7restmvc.model.entity.Customer;
+import guru.springframework.spring7restmvc.repository.CustomerRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
