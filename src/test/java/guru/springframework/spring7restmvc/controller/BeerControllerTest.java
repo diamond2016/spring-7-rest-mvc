@@ -3,7 +3,7 @@ package guru.springframework.spring7restmvc.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import guru.springframework.spring7restmvc.model.BeerDTO;
-import guru.springframework.spring7restmvc.service.BeerService;
+import guru.springframework.spring7restmvc.services.BeerService;
 import guru.springframework.spring7restmvc.service.impl.BeerServiceImpl;
 
 import org.junit.jupiter.api.BeforeEach;

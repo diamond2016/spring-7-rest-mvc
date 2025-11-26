@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 
 import guru.springframework.spring7restmvc.model.BeerDTO;
 import guru.springframework.spring7restmvc.model.BeerStyle;
-import guru.springframework.spring7restmvc.service.BeerService;
+import guru.springframework.spring7restmvc.services.BeerService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
