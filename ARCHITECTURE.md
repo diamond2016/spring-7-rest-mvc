@@ -76,16 +76,5 @@ Notes and conventions:
 - Store Flyway migrations in `src/main/resources/db/migration` with sequential `V__` filenames.
 - Use `src/main/resources` for environment-specific properties; do not commit secrets.
 
-## Next steps for the refactor
-
-1. Rename/refactor packages to match the above layout (one package at a time).
-2. Add a `service/impl` package and migrate current implementations there.
-3. Ensure `src/test/java` mirrors `src/main/java` structure for test coverage.
-4. Add developer notes in `TASK.md` for migration checkpoints and PR granularity.
-
 ---
-
-Updated the folder structure to be consistent with Maven and Spring Boot best practices. If you want, I can now:
-
-- generate a precise file-by-file migration plan, or
-- apply package renames in the codebase in small, testable commits.
+This is the structure which project will adhere to after the refactor.
