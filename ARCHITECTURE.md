@@ -78,5 +78,3 @@ Notes and conventions:
 - Store Flyway migrations in `src/main/resources/db/migration` with sequential `V__` filenames.
 - Use `src/main/resources` for environment-specific properties; do not commit secrets.
 
----
-This is the structure which project will adhere to after the refactor.
