@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import guru.springframework.spring7restmvc.model.CustomerDTO;
 import guru.springframework.spring7restmvc.service.impl.CustomerServiceImpl;
-import guru.springframework.spring7restmvc.services.CustomerService;
+import guru.springframework.spring7restmvc.service.CustomerService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import guru.springframework.spring7restmvc.mappers.BeerMapper;
 import guru.springframework.spring7restmvc.model.BeerDTO;
 import guru.springframework.spring7restmvc.repositories.BeerRepository;
-import guru.springframework.spring7restmvc.services.BeerService;
+import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.util.List;
 import java.util.Optional;

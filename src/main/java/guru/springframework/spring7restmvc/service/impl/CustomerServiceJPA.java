@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import guru.springframework.spring7restmvc.mappers.CustomerMapper;
 import guru.springframework.spring7restmvc.model.CustomerDTO;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
-import guru.springframework.spring7restmvc.services.CustomerService;
+import guru.springframework.spring7restmvc.service.CustomerService;
 
 import java.util.List;
 import java.util.Optional;

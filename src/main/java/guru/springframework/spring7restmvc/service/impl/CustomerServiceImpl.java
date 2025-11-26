@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import guru.springframework.spring7restmvc.model.CustomerDTO;
-import guru.springframework.spring7restmvc.services.CustomerService;
+import guru.springframework.spring7restmvc.service.CustomerService;
 
 import java.time.LocalDateTime;
 import java.util.*;

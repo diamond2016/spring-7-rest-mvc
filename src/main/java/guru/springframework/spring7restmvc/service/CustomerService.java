@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.services;
+package guru.springframework.spring7restmvc.service;
 
 import java.util.List;
 import java.util.Optional;

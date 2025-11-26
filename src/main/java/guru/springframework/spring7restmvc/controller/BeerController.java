@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import guru.springframework.spring7restmvc.model.BeerDTO;
-import guru.springframework.spring7restmvc.services.BeerService;
+import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.util.List;
 import java.util.UUID;
