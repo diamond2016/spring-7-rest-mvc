@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import guru.springframework.spring7restmvc.entities.Beer;
-import guru.springframework.spring7restmvc.entities.Customer;
-import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
+import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.model.entity.Customer;
 import guru.springframework.spring7restmvc.repositories.BeerRepository;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
 

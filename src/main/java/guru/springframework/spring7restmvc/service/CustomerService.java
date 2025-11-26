@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import guru.springframework.spring7restmvc.model.CustomerDTO;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
 
 /**
  * Created by jt, Spring Framework Guru.

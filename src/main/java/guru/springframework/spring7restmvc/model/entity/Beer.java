@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.entities;
+package guru.springframework.spring7restmvc.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -14,7 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
-import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

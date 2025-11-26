@@ -16,8 +16,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import guru.springframework.spring7restmvc.entities.Beer;
-//import javax.sql.DataSource;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 
 
 @Testcontainers

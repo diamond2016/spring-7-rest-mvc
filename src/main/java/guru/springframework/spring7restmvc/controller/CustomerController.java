@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import guru.springframework.spring7restmvc.model.CustomerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
 import guru.springframework.spring7restmvc.service.CustomerService;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public class CustomerController {
     }
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity<Void> handlePost(@RequestBody CustomerDTO customer){
+    public ResponseEntity<Void> handlePost(@Validated @RequestBody CustomerDTO customer){
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();

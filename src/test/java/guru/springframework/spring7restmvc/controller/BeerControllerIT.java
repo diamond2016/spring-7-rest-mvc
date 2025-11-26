@@ -2,9 +2,9 @@ package guru.springframework.spring7restmvc.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import guru.springframework.spring7restmvc.entities.Beer;
 import guru.springframework.spring7restmvc.mappers.BeerMapper;
-import guru.springframework.spring7restmvc.model.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.repositories.BeerRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +82,7 @@ class BeerControllerIT {
     void deleteByIdFound() {
         Beer beer = beerRepository.findAll().get(0);
 
-        ResponseEntity responseEntity = beerController.deleteById(beer.getId());
+        ResponseEntity<Void> responseEntity = beerController.deleteById(beer.getId());
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         assertThat(beerRepository.findById(beer.getId()).isEmpty());
@@ -106,7 +106,7 @@ class BeerControllerIT {
         final String beerName = "UPDATED";
         beerDTO.setBeerName(beerName);
 
-        ResponseEntity responseEntity = beerController.updateById(beer.getId(), beerDTO);
+        ResponseEntity<Void> responseEntity = beerController.updateById(beer.getId(), beerDTO);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         Beer updatedBeer = beerRepository.findById(beer.getId()).get();
@@ -121,7 +121,7 @@ class BeerControllerIT {
                 .beerName("New Beer")
                 .build();
 
-        ResponseEntity responseEntity = beerController.handlePost(beerDTO);
+        ResponseEntity<Void> responseEntity = beerController.handlePost(beerDTO);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
         assertThat(responseEntity.getHeaders().getLocation()).isNotNull();

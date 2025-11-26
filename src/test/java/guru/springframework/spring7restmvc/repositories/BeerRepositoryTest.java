@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import guru.springframework.spring7restmvc.entities.Beer;
-import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 
 import java.math.BigDecimal;
 

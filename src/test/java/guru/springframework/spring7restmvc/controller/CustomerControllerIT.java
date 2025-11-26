@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import guru.springframework.spring7restmvc.entities.Customer;
 import guru.springframework.spring7restmvc.mappers.CustomerMapper;
-import guru.springframework.spring7restmvc.model.CustomerDTO;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
+import guru.springframework.spring7restmvc.model.entity.Customer;
 import guru.springframework.spring7restmvc.repositories.CustomerRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.model;
+package guru.springframework.spring7restmvc.model.dto;
 
 /**
  * Created by jt, Spring Framework Guru.

@@ -2,7 +2,7 @@ package guru.springframework.spring7restmvc.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import guru.springframework.spring7restmvc.entities.Customer;
+import guru.springframework.spring7restmvc.model.entity.Customer;
 
 import java.util.UUID;
 
