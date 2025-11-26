@@ -67,7 +67,9 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public Boolean deleteCustomerById(UUID customerId) {
-
+        if (customerId == null) {
+            throw new IllegalArgumentException("Eror, no ID provided to delete CustomerDTO");
+        }
         if(customerRepository.existsById(customerId)){
             customerRepository.deleteById(customerId);
             return true;
@@ -77,7 +79,6 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public Optional<CustomerDTO> patchCustomerById(UUID customerId, CustomerDTO customer) {
-        AtomicReference<Optional<CustomerDTO>> atomicReference = new AtomicReference<>();
         if (customerId == null) {
             throw new IllegalArgumentException("Eror, no ID provided to convert CustomerDTO to Customer entity");
         }
