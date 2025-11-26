@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.repositories;
+package guru.springframework.spring7restmvc.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
