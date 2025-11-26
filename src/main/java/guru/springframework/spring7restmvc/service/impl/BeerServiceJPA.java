@@ -1,3 +1,5 @@
+package guru.springframework.spring7restmvc.service.impl;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Primary
 @RequiredArgsConstructor
-public class BeerServiceJPA implements BeerService {
+public class BeerServiceJPA {
 // placeholder class for package refactor
 }
