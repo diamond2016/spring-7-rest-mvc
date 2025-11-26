@@ -2,6 +2,8 @@
 
 ## Project Overview
 A Java Spring Boot web application used as a template and learning example. The domain models include `Beer` and `Customer`.
+The original repository of the course is here: [Spring Framework 7 - Beginner to Guru](https://github.com/springframeworkguru/spring-7-rest-mvc). Forked at branch: `75-db-create-scripts`
+This structure is a fork of the original project, and has a different structure of folders.
 
 ## Technology Stack (high level)
 

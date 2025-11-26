@@ -23,29 +23,38 @@ class BeerRepositoryTest {
     void testSaveBeerNameTooLong() {
 
         assertThrows(ConstraintViolationException.class, () -> {
-            Beer savedBeer = beerRepository.save(Beer.builder()
+            Beer savedBeer = Beer.builder()
                     .beerName("My Beer 0123345678901233456789012334567890123345678901233456789012334567890123345678901233456789")
                     .beerStyle(BeerStyle.PALE_ALE)
                     .upc("234234234234")
                     .price(new BigDecimal("11.99"))
-                    .build());
-
+                    .quantityOnHand(100)
+                    .build();
+            if (savedBeer != null) {
+                beerRepository.save(savedBeer);
+                assertThat(savedBeer).isNotNull();
+                assertThat(savedBeer.getId()).isNotNull();
+            }
             beerRepository.flush();
         });
     }
 
     @Test
     void testSaveBeer() {
-        Beer savedBeer = beerRepository.save(Beer.builder()
+        Beer savedBeer = Beer.builder()
                         .beerName("My Beer")
                         .beerStyle(BeerStyle.PALE_ALE)
                         .upc("234234234234")
                         .price(new BigDecimal("11.99"))
-                .build());
-
+                        .quantityOnHand(100)
+                .build();
+        if (savedBeer != null) {
+            beerRepository.save(savedBeer);
+                assertThat(savedBeer).isNotNull();
+                assertThat(savedBeer.getId()).isNotNull();
+        }
         beerRepository.flush();
 
-        assertThat(savedBeer).isNotNull();
-        assertThat(savedBeer.getId()).isNotNull();
+
     }
 }
