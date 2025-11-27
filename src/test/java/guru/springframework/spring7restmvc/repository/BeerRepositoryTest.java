@@ -1,12 +1,12 @@
-package guru.springframework.spring7restmvc.repositories;
+package guru.springframework.spring7restmvc.repository;
 
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import guru.springframework.spring7restmvc.entities.Beer;
-import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 
 import java.math.BigDecimal;
 
@@ -23,12 +23,16 @@ class BeerRepositoryTest {
     void testSaveBeerNameTooLong() {
 
         assertThrows(ConstraintViolationException.class, () -> {
-            Beer savedBeer = beerRepository.save(Beer.builder()
+            Beer savedBeer = Beer.builder()
                     .beerName("My Beer 0123345678901233456789012334567890123345678901233456789012334567890123345678901233456789")
                     .beerStyle(BeerStyle.PALE_ALE)
                     .upc("234234234234")
                     .price(new BigDecimal("11.99"))
-                    .build());
+                    .quantityOnHand(100)
+                    .build();
+            beerRepository.save(savedBeer);
+            assertThat(savedBeer).isNotNull();
+            assertThat(savedBeer.getId()).isNotNull();
 
             beerRepository.flush();
         });
@@ -36,16 +40,18 @@ class BeerRepositoryTest {
 
     @Test
     void testSaveBeer() {
-        Beer savedBeer = beerRepository.save(Beer.builder()
+        Beer savedBeer = Beer.builder()
                         .beerName("My Beer")
                         .beerStyle(BeerStyle.PALE_ALE)
                         .upc("234234234234")
                         .price(new BigDecimal("11.99"))
-                .build());
-
-        beerRepository.flush();
-
+                        .quantityOnHand(100)
+                .build();
+        beerRepository.save(savedBeer);
         assertThat(savedBeer).isNotNull();
         assertThat(savedBeer.getId()).isNotNull();
+        beerRepository.flush();
+
+
     }
 }

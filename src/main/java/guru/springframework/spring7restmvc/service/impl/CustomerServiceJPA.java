@@ -1,13 +1,15 @@
-package guru.springframework.spring7restmvc.services;
+package guru.springframework.spring7restmvc.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import guru.springframework.spring7restmvc.mappers.CustomerMapper;
-import guru.springframework.spring7restmvc.model.CustomerDTO;
-import guru.springframework.spring7restmvc.repositories.CustomerRepository;
+import guru.springframework.spring7restmvc.mapper.CustomerMapper;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
+import guru.springframework.spring7restmvc.model.entity.Customer;
+import guru.springframework.spring7restmvc.repository.CustomerRepository;
+import guru.springframework.spring7restmvc.service.CustomerService;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,18 +42,20 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public CustomerDTO saveNewCustomer(CustomerDTO customer) {
-        var customerEntity = customerMapper.customerDtoToCustomer(customer);
+        Customer customerEntity = customerMapper.customerDtoToCustomer(customer);
         if (customerEntity == null) {
             throw new IllegalArgumentException("Failed to convert CustomerDTO to Customer entity");
         }
-        return customerMapper.customerToCustomerDto(customerEntity);
+        // persist the entity so an id is generated, then map back to DTO
+        Customer saved = customerRepository.save(customerEntity);
+        return customerMapper.customerToCustomerDto(saved);
     }
 
     @Override
     public Optional<CustomerDTO> updateCustomerById(UUID customerId, CustomerDTO customer) {
         AtomicReference<Optional<CustomerDTO>> atomicReference = new AtomicReference<>();
         if (customerId == null) {
-            throw new IllegalArgumentException("Eror, no ID provided to get CustomerDTO");
+            throw new IllegalArgumentException("Error, no ID provided to get CustomerDTO");
         }
         customerRepository.findById(customerId).ifPresentOrElse(foundCustomer -> {
             foundCustomer.setName(customer.getName());
@@ -66,7 +70,9 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public Boolean deleteCustomerById(UUID customerId) {
-
+        if (customerId == null) {
+            throw new IllegalArgumentException("Error, no ID provided to delete CustomerDTO");
+        }
         if(customerRepository.existsById(customerId)){
             customerRepository.deleteById(customerId);
             return true;
@@ -76,7 +82,6 @@ public class CustomerServiceJPA implements CustomerService {
 
     @Override
     public Optional<CustomerDTO> patchCustomerById(UUID customerId, CustomerDTO customer) {
-        AtomicReference<Optional<CustomerDTO>> atomicReference = new AtomicReference<>();
         if (customerId == null) {
             throw new IllegalArgumentException("Eror, no ID provided to convert CustomerDTO to Customer entity");
         }

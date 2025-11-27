@@ -1,13 +1,15 @@
-package guru.springframework.spring7restmvc.services;
+package guru.springframework.spring7restmvc.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import guru.springframework.spring7restmvc.mappers.BeerMapper;
-import guru.springframework.spring7restmvc.model.BeerDTO;
-import guru.springframework.spring7restmvc.repositories.BeerRepository;
+import guru.springframework.spring7restmvc.mapper.BeerMapper;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.repository.BeerRepository;
+import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public BeerDTO saveNewBeer(BeerDTO beer) {
-        var beerEntity = beerMapper.beerDtoToBeer(beer);
+        Beer beerEntity = beerMapper.beerDtoToBeer(beer);
         if (beerEntity == null) {
             throw new IllegalArgumentException("Failed to convert BeerDTO to Beer entity");
         }

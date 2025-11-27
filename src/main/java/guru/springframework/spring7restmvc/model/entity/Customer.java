@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.entities;
+package guru.springframework.spring7restmvc.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

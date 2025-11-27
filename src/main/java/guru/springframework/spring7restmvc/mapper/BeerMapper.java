@@ -1,9 +1,9 @@
-package guru.springframework.spring7restmvc.mappers;
+package guru.springframework.spring7restmvc.mapper;
 
 import org.mapstruct.Mapper;
 
-import guru.springframework.spring7restmvc.entities.Beer;
-import guru.springframework.spring7restmvc.model.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 
 /**
  * Created by jt, Spring Framework Guru.

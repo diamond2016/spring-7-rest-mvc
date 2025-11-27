@@ -8,10 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import guru.springframework.spring7restmvc.entities.Customer;
-import guru.springframework.spring7restmvc.mappers.CustomerMapper;
-import guru.springframework.spring7restmvc.model.CustomerDTO;
-import guru.springframework.spring7restmvc.repositories.CustomerRepository;
+import guru.springframework.spring7restmvc.mapper.CustomerMapper;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
+import guru.springframework.spring7restmvc.model.entity.Customer;
+import guru.springframework.spring7restmvc.repository.CustomerRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +37,7 @@ class CustomerControllerIT {
     void deleteByIdFound() {
         Customer customer = customerRepository.findAll().get(0);
 
-        ResponseEntity responseEntity = customerController.deleteCustomerById(customer.getId());
+        ResponseEntity<Void> responseEntity = customerController.deleteCustomerById(customer.getId());
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         assertThat(customerRepository.findById(customer.getId()).isEmpty());
@@ -60,7 +60,7 @@ class CustomerControllerIT {
     @Rollback
     @Transactional
     @Test
-    void updateExistingBeer() {
+    void updateExistingCustomer() {
         Customer customer = customerRepository.findAll().get(0);
         CustomerDTO customerDTO = customerMapper.customerToCustomerDto(customer);
         customerDTO.setId(null);
@@ -68,7 +68,7 @@ class CustomerControllerIT {
         final String customerName = "UPDATED";
         customerDTO.setName(customerName);
 
-        ResponseEntity responseEntity = customerController.updateCustomerByID(customer.getId(), customerDTO);
+        ResponseEntity<Void> responseEntity = customerController.updateCustomerByID(customer.getId(), customerDTO);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
@@ -78,12 +78,12 @@ class CustomerControllerIT {
     @Rollback
     @Transactional
     @Test
-    void saveNewBeerTest() {
+    void saveNewCustomerTest() {
        CustomerDTO customerDTO = CustomerDTO.builder()
                .name("TEST")
                .build();
 
-        ResponseEntity responseEntity = customerController.handlePost(customerDTO);
+        ResponseEntity<Void> responseEntity = customerController.handlePost(customerDTO);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
         assertThat(responseEntity.getHeaders().getLocation()).isNotNull();

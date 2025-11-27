@@ -1,10 +1,10 @@
-package guru.springframework.spring7restmvc.services;
+package guru.springframework.spring7restmvc.service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import guru.springframework.spring7restmvc.model.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
 
 /**
  * Created by jt, Spring Framework Guru.

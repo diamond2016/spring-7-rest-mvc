@@ -1,11 +1,12 @@
-package guru.springframework.spring7restmvc.services;
+package guru.springframework.spring7restmvc.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import guru.springframework.spring7restmvc.model.BeerDTO;
-import guru.springframework.spring7restmvc.model.BeerStyle;
+import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
+import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

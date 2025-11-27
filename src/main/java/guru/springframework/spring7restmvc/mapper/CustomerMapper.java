@@ -1,9 +1,9 @@
-package guru.springframework.spring7restmvc.mappers;
+package guru.springframework.spring7restmvc.mapper;
 
 import org.mapstruct.Mapper;
 
-import guru.springframework.spring7restmvc.entities.Customer;
-import guru.springframework.spring7restmvc.model.CustomerDTO;
+import guru.springframework.spring7restmvc.model.dto.CustomerDTO;
+import guru.springframework.spring7restmvc.model.entity.Customer;
 
 /**
  * Created by jt, Spring Framework Guru.

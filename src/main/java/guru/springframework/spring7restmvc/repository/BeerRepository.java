@@ -1,8 +1,8 @@
-package guru.springframework.spring7restmvc.repositories;
+package guru.springframework.spring7restmvc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import guru.springframework.spring7restmvc.entities.Beer;
+import guru.springframework.spring7restmvc.model.entity.Beer;
 
 import java.util.UUID;
 
