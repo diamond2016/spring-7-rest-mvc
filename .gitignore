@@ -34,4 +34,5 @@ build/
 
 ### Project specific ###
 TASK.md
-JPA-MySQL.md 
+JPA-MySQL.md
+TESTING.md
