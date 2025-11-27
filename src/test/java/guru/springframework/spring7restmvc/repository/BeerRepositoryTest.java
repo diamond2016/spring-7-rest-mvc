@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
-import guru.springframework.spring7restmvc.repository.BeerRepository;
 
 import java.math.BigDecimal;
 
@@ -31,11 +30,10 @@ class BeerRepositoryTest {
                     .price(new BigDecimal("11.99"))
                     .quantityOnHand(100)
                     .build();
-            if (savedBeer != null) {
-                beerRepository.save(savedBeer);
-                assertThat(savedBeer).isNotNull();
-                assertThat(savedBeer.getId()).isNotNull();
-            }
+            beerRepository.save(savedBeer);
+            assertThat(savedBeer).isNotNull();
+            assertThat(savedBeer.getId()).isNotNull();
+
             beerRepository.flush();
         });
     }
@@ -49,11 +47,9 @@ class BeerRepositoryTest {
                         .price(new BigDecimal("11.99"))
                         .quantityOnHand(100)
                 .build();
-        if (savedBeer != null) {
-            beerRepository.save(savedBeer);
-                assertThat(savedBeer).isNotNull();
-                assertThat(savedBeer.getId()).isNotNull();
-        }
+        beerRepository.save(savedBeer);
+        assertThat(savedBeer).isNotNull();
+        assertThat(savedBeer.getId()).isNotNull();
         beerRepository.flush();
 
 

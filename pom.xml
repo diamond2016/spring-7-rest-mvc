@@ -72,7 +72,7 @@
 		    <groupId>org.mapstruct</groupId>
 		    <artifactId>mapstruct-processor</artifactId>
 		    <version>${org.mapstruct.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
 	    </dependency>        
         <dependency>
             <groupId>org.springframework.boot</groupId>
