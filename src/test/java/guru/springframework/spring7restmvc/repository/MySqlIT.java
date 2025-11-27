@@ -17,13 +17,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import guru.springframework.spring7restmvc.model.entity.Beer;
-import guru.springframework.spring7restmvc.repository.BeerRepository;
 
 
 @Testcontainers
 @SpringBootTest
-@ActiveProfiles("localmysql")
-public class MySqlTest {
+@ActiveProfiles("localmysql") // end in IT to be picked up by failsafe plugin
+public class MySqlIT {
 
     @Container
     @ServiceConnection
