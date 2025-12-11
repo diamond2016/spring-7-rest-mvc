@@ -36,3 +36,5 @@ build/
 TASK.md
 JPA-MySQL.md
 TESTING.md
+.github/
+.gitignore
