@@ -1,4 +1,4 @@
-package guru.springframework.spring7restmvc.model;
+package guru.springframework.spring7restmvc.model.dto;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BeerCSVRecord {
+public class BeerCsvRecord {
     @CsvBindByName
     private Integer row;
 
@@ -30,7 +30,7 @@ public class BeerCSVRecord {
     @CsvBindByName
     private String style;
 
-    @CsvBindByName(column = "brewery.id")
+    @CsvBindByName(column = "brewery_id")
     private Integer breweryId;
 
     @CsvBindByName
@@ -39,7 +39,7 @@ public class BeerCSVRecord {
     @CsvBindByName(column = "style2")
     private String style2;
 
-    @CsvBindByName(column = "count_y")
+    @CsvBindByName(column = "count.y")
     private String count_y;
 
     @CsvBindByName

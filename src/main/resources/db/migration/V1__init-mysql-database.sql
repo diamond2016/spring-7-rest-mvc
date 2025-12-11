@@ -11,7 +11,7 @@
         id char(36) not null,
         beer_name varchar(50) not null,
         upc varchar(255) not null,
-        beer_style enum ('ALE','GOSE','IPA','LAGER','PALE_ALE','PILSNER','PORTER','SAISON','STOUT','WHEAT') not null,
+        beer_style enum ('ALE','GOSE','IPA','LAGER','PALE_ALE','PILSNER','PORTER','SAISON','STOUT','WHEAT','BLACK_ALE') not null,
         primary key (id)
     ) engine=InnoDB;
 
