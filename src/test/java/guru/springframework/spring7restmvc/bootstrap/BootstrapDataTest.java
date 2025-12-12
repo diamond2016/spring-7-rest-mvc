@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @ActiveProfiles("localh2")
-
+// the test is for h2 where we do not load csv record (for now)
 class BootstrapDataTest {
 
     @Autowired
