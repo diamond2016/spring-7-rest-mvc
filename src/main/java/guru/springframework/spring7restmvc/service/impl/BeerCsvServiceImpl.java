@@ -7,8 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.opencsv.bean.CsvToBeanBuilder;
 
+@Service
 public class BeerCsvServiceImpl implements BeerCsvService   {
 
     @Override

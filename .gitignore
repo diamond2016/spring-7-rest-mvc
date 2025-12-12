@@ -37,4 +37,5 @@ TASK.md
 JPA-MySQL.md
 TESTING.md
 .github/
+scripts/
 .gitignore

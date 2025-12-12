@@ -80,7 +80,7 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     private void loadCsvData() throws FileNotFoundException {
-        if (beerRepository.count() > 10) {
+        if (beerRepository.count() < 10) {
             // implement CSV loading only one time
             File file = ResourceUtils.getFile("classpath:csvdata/beers.csv");
             List<BeerCsvRecord> beerCSVRecordList = beerCsvService.convertCSV(file);
@@ -95,8 +95,13 @@ public class BootstrapData implements CommandLineRunner {
                     case "American IPA" -> BeerStyle.IPA;
                     default -> BeerStyle.WHEAT;
                 };
+                String beerName = record.getBeer();
+                if (beerName.length() > 50) {
+                    beerName = beerName.substring(0, 49);
+                    System.out.println("Truncated Beer Name to 50 chars: " + beerName);
+                }
                 Beer beer = Beer.builder()
-                        .beerName(record.getBeer())
+                        .beerName(beerName)
                         .beerStyle(beerStyle)
                         .upc(record.getRow().toString()) // dummy UPC
                         .price(new BigDecimal(10.00)) // dummy price
@@ -105,7 +110,11 @@ public class BootstrapData implements CommandLineRunner {
                         .createdDate(LocalDateTime.now())
                         .updateDate(LocalDateTime.now())
                         .build();
-                beerRepository.save(beer);
+                try {
+                    beerRepository.save(beer);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }); 
         }
     }
