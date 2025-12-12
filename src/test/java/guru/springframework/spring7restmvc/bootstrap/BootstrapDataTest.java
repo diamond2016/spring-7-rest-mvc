@@ -6,9 +6,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import guru.springframework.spring7restmvc.model.dto.BeerCsvRecord;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.repository.CustomerRepository;
 import guru.springframework.spring7restmvc.service.BeerCsvService;
@@ -16,10 +17,12 @@ import guru.springframework.spring7restmvc.service.BeerCsvService;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.ArrayList;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@TestPropertySource(properties = "spring.flyway.enabled=false")
+@ActiveProfiles("localh2")
+
 class BootstrapDataTest {
 
     @Autowired
@@ -35,7 +38,7 @@ class BootstrapDataTest {
     @BeforeEach
     void setUp() {
         try {
-        Mockito.doNothing().when(beerCsvService).convertCSV((Mockito.any(File.class)));
+        Mockito.when(beerCsvService.convertCSV(Mockito.any(File.class))).thenReturn(new ArrayList<BeerCsvRecord>());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -46,7 +49,7 @@ class BootstrapDataTest {
     void Testrun() throws Exception {
         bootstrapData.run();
 
-        assertThat(beerRepository.count()).isGreaterThan(3);
+        assertThat(beerRepository.count()).isEqualTo(3);
         assertThat(customerRepository.count()).isEqualTo(3);
     }
 }
