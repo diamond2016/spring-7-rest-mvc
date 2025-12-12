@@ -10,7 +10,7 @@ import guru.springframework.spring7restmvc.model.entity.Customer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @org.junit.jupiter.api.Tag("mysql")
 class CustomerRepositoryTest extends guru.springframework.spring7restmvc.test.AbstractMySqlIntegrationTest {
 
