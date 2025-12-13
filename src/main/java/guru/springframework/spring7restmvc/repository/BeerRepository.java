@@ -10,4 +10,5 @@ import java.util.UUID;
  * Created by jt, Spring Framework Guru.
  */
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
+    Beer findByUpc(String upc);
 }

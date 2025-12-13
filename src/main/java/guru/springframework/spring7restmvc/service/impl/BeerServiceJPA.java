@@ -115,4 +115,10 @@ public class BeerServiceJPA implements BeerService {
             return Optional.of(beerMapper.beerToBeerDto(beerRepository.save(foundBeer)));
         }
     }
+    
+    @Override
+    public Optional<BeerDTO> getBeerByUpc(String upc) {
+        return Optional.ofNullable(beerRepository.findByUpc(upc))
+                .map(beer -> beerMapper.beerToBeerDto(beer));    
+    }
 }

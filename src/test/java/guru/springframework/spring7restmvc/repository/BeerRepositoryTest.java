@@ -54,4 +54,24 @@ class BeerRepositoryTest extends guru.springframework.spring7restmvc.test.Abstra
 
 
     }
+
+    @Test
+    void testFindByUpc() {
+        String upc = "555666777888";
+        Beer beer = Beer.builder()
+                .beerName("FindMe")
+                .upc(upc)
+                .beerStyle(BeerStyle.IPA)
+                .price(BigDecimal.valueOf(12.3))
+                .quantityOnHand(200)
+                .build();
+
+        Beer savedBeer = beerRepository.save(beer);
+
+        var foundBeer = beerRepository.findByUpc(upc);
+
+        assertThat(foundBeer).isNotNull();
+        assertThat(foundBeer.getBeerName().equals("FindMe"));
+        assertThat(foundBeer.getUpc().equals(savedBeer.getUpc()));
+    }
 }

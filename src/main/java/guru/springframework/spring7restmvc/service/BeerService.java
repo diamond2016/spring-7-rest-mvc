@@ -22,4 +22,6 @@ public interface BeerService {
     Boolean deleteById(UUID beerId);
 
     Optional<BeerDTO> patchBeerById(UUID beerId, BeerDTO beer);
+
+    Optional<BeerDTO> getBeerByUpc(String upc);
 }

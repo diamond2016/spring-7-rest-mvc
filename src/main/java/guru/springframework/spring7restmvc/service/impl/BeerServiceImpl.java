@@ -141,6 +141,16 @@ public class BeerServiceImpl implements BeerService {
 
         return savedBeer;
     }
+
+    @Override
+    public Optional<BeerDTO> getBeerByUpc(String upc) {
+
+        log.debug("Get Beer by UPC - in service. UPC: " + upc);
+
+        return beerMap.values().stream()
+                .filter(beer -> beer.getUpc().equals(upc))
+                .findFirst();
+    }
 }
 
 
