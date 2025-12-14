@@ -91,7 +91,7 @@ class BeerControllerIT {
     @Test
     void testUpdateNotFound() {
         assertThrows(NotFoundException.class, () -> {
-            beerController.updateById(UUID.randomUUID(), BeerDTO.builder().build());
+            beerController.updateBeerById(UUID.randomUUID(), BeerDTO.builder().build());
         });
     }
 
@@ -106,7 +106,7 @@ class BeerControllerIT {
         final String beerName = "UPDATED";
         beerDTO.setBeerName(beerName);
 
-        ResponseEntity<Void> responseEntity = beerController.updateById(beer.getId(), beerDTO);
+        ResponseEntity<Void> responseEntity = beerController.updateBeerById(beer.getId(), beerDTO);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         Beer updatedBeer = beerRepository.findById(beer.getId()).get();
