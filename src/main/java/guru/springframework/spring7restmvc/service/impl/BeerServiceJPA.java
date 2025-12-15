@@ -11,6 +11,7 @@ import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.service.BeerService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,10 +28,21 @@ public class BeerServiceJPA implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
+    List<Beer> listBeersByName(String beerName) {
+        return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%"));
+    }
+
     @Override
-    public List<BeerDTO> listBeers() {
-        return beerRepository.findAll()
-                .stream()
+    public List<BeerDTO> listBeers(String beerName) {
+        List<Beer> beerList;
+
+        if (StringUtils.hasText(beerName)) {
+            beerList = listBeersByName(beerName);
+        } else {
+            beerList = beerRepository.findAll();
+        }
+
+        return beerList.stream()
                 .map(beerMapper::beerToBeerDto)
                 .collect(Collectors.toList());
     }

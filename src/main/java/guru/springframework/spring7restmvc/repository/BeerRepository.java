@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import guru.springframework.spring7restmvc.model.entity.Beer;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -11,4 +12,5 @@ import java.util.UUID;
  */
 public interface BeerRepository extends JpaRepository<Beer, UUID> {
     Beer findByUpc(String upc);
+    List<Beer> findAllByBeerNameIsLikeIgnoreCase(String beerName);
 }

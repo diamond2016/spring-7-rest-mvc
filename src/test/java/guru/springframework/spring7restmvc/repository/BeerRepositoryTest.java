@@ -4,20 +4,25 @@ import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
+import guru.springframework.spring7restmvc.bootstrap.BootstrapData;
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.service.impl.BeerCsvServiceImpl;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @ActiveProfiles("mysql")
+@Import({BootstrapData.class, BeerCsvServiceImpl.class}) // includes BootstrapData to load initial data (csv)
 class BeerRepositoryTest extends guru.springframework.spring7restmvc.test.AbstractMySqlIntegrationTest {
 
     @Autowired
@@ -73,5 +78,26 @@ class BeerRepositoryTest extends guru.springframework.spring7restmvc.test.Abstra
         assertThat(foundBeer).isNotNull();
         assertThat(foundBeer.getBeerName().equals("FindMe"));
         assertThat(foundBeer.getUpc().equals(savedBeer.getUpc()));
+    }
+
+    @Test
+    void testGetListBeerByName() {
+        String beerName = "ListMe";
+        Beer beer = Beer.builder()
+                .beerName(beerName)
+                .upc("999888777666")
+                .beerStyle(BeerStyle.STOUT)
+                .price(BigDecimal.valueOf(10.0))
+                .quantityOnHand(150)
+                .build();
+
+        beerRepository.save(beer);
+
+        //var beerList = beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%");
+        var beerList = beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + "IPA" + "%");
+        assertThat(beerList).isNotNull();
+        assertThat(beerList.size()).isGreaterThan(0);
+        System.out.println("Found nr." + beerList.size());
+        assertThat(beerList.get(0).getBeerName().equals(beerName));
     }
 }
