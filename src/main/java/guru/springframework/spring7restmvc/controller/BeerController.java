@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.service.BeerService;
 
 import java.util.List;
@@ -67,8 +68,8 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH)
-    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName, @RequestParam(required = false) String beerStyle){
-        return beerService.listBeers(beerName, beerStyle);
+    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName, @RequestParam(required = false) BeerStyle beerStyle){
+            return beerService.listBeers(beerName, beerStyle);
     }
 
 

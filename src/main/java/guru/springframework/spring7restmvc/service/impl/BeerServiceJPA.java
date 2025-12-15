@@ -42,15 +42,31 @@ public class BeerServiceJPA implements BeerService {
     }
 
 
+    /**
+     * Retrieve a list of BeerDTOs filtered by optional name and/or style.
+     *
+     * Behavior:
+     * - If both beerName (non-blank) and beerStyle (non-null) are provided, returns beers matching both name and style.
+     * - If only beerStyle (non-null) is provided, returns beers matching that style.
+     * - If only beerName (non-blank) is provided, returns beers matching that name.
+     * - If neither filter is provided, returns all beers.
+     *
+     * @param beerName optional name filter; treated as absent when null or blank
+     * @param beerStyle optional BeerStyle enum filter; when non-null, the enum's .name() is used for comparisons
+     * @return list of BeerDTOs corresponding to the matching Beer entities
+     *
+     * Note: enumType.name() returns the exact identifier String of the enum constant as declared (for example "LAGER").
+     * This is the literal enum constant name and differs from a localized or user-friendly label.
+     */
     @Override
-    public List<BeerDTO> listBeers(String beerName, String beerStyle) {
+    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle) {
         List<Beer> beerList;
 
-        if (StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)) {
-            beerList = listBeersByNameAndStyle(beerName, beerStyle);
-        } else if (StringUtils.hasText(beerStyle) && !StringUtils.hasText(beerName)) {
-            beerList = listBeersByStyle(beerStyle);
-        } else if (StringUtils.hasText(beerName) && !StringUtils.hasText(beerStyle))  {
+        if (StringUtils.hasText(beerName) && beerStyle != null) {
+            beerList = listBeersByNameAndStyle(beerName, beerStyle.name());
+        } else if (beerStyle != null && !StringUtils.hasText(beerName)) {
+            beerList = listBeersByStyle(beerStyle.name());
+        } else if (StringUtils.hasText(beerName) && beerStyle == null)  {
             beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();

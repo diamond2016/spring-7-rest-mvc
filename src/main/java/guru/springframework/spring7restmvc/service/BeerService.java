@@ -5,13 +5,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 
 /**
  * Created by jt, Spring Framework Guru.
  */
 public interface BeerService {
 
-    List<BeerDTO> listBeers(String beerName, String beerStyle);
+    List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle);
 
     Optional<BeerDTO> getBeerById(UUID id);
 
