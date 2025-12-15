@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 
 import guru.springframework.spring7restmvc.mapper.BeerMapper;
 import guru.springframework.spring7restmvc.model.dto.BeerDTO;
+import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.service.BeerService;
@@ -31,12 +32,25 @@ public class BeerServiceJPA implements BeerService {
     List<Beer> listBeersByName(String beerName) {
         return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%"));
     }
+    List<Beer> listBeersByNameAndStyle(String beerName, String beerStyle) {
+        BeerStyle style = BeerStyle.valueOf(beerStyle.toUpperCase());
+        return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndBeerStyle("%" + beerName + "%", style));
+    }
+    List<Beer> listBeersByStyle(String beerStyle) {
+        BeerStyle style = BeerStyle.valueOf(beerStyle.toUpperCase());
+        return new ArrayList<Beer>(beerRepository.findAllByBeerStyle(style));
+    }
+
 
     @Override
-    public List<BeerDTO> listBeers(String beerName) {
+    public List<BeerDTO> listBeers(String beerName, String beerStyle) {
         List<Beer> beerList;
 
-        if (StringUtils.hasText(beerName)) {
+        if (StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle)) {
+            beerList = listBeersByNameAndStyle(beerName, beerStyle);
+        } else if (StringUtils.hasText(beerStyle) && !StringUtils.hasText(beerName)) {
+            beerList = listBeersByStyle(beerStyle);
+        } else if (StringUtils.hasText(beerName) && !StringUtils.hasText(beerStyle))  {
             beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();

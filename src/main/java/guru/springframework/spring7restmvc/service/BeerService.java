@@ -11,7 +11,7 @@ import guru.springframework.spring7restmvc.model.dto.BeerDTO;
  */
 public interface BeerService {
 
-    List<BeerDTO> listBeers(String beerName);
+    List<BeerDTO> listBeers(String beerName, String beerStyle);
 
     Optional<BeerDTO> getBeerById(UUID id);
 

@@ -14,6 +14,7 @@ import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.service.impl.BeerCsvServiceImpl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -99,5 +100,43 @@ class BeerRepositoryTest extends guru.springframework.spring7restmvc.test.Abstra
         assertThat(beerList.size()).isGreaterThan(0);
         System.out.println("Found nr." + beerList.size());
         assertThat(beerList.get(0).getBeerName().equals(beerName));
+    }
+
+    @Test
+    void testGetListBeerByStyle() {
+        String beerStyleString = "BLACK_ALE";
+        Beer beer = Beer.builder()
+                .beerName("new beer")
+                .upc("999888777666")
+                .beerStyle(BeerStyle.BLACK_ALE)
+                .price(BigDecimal.valueOf(10.0))
+                .quantityOnHand(150)
+                .build();
+
+        beerRepository.save(beer);
+        List<Beer> beerList = beerRepository.findAllByBeerStyle(BeerStyle.valueOf(beerStyleString));
+        assertThat(beerList).isNotNull();
+        assertThat(beerList.size()).isGreaterThan(0);
+        System.out.println("Found nr." + beerList.size());        
+        assertThat(beerList.get(0).getBeerStyle().equals(BeerStyle.BLACK_ALE));
+    }
+
+    @Test
+    void testGetListBeerByNameAndStyle() {
+        String beerStyleString = "BLACK_ALE";
+        Beer beer = Beer.builder()
+                .beerName("new beer")
+                .upc("999888777666")
+                .beerStyle(BeerStyle.BLACK_ALE)
+                .price(BigDecimal.valueOf(10.0))
+                .quantityOnHand(150)
+                .build();
+
+        beerRepository.save(beer);
+        List<Beer> beerList = beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndBeerStyle("%" + "new beer" + "%", BeerStyle.valueOf(beerStyleString));
+        assertThat(beerList).isNotNull();
+        assertThat(beerList.size()).isGreaterThan(0);
+        System.out.println("Found nr." + beerList.size());        
+        assertThat(beerList.get(0).getBeerStyle().equals(BeerStyle.BLACK_ALE));
     }
 }

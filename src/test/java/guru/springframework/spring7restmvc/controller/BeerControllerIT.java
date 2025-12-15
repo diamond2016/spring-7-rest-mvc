@@ -64,6 +64,22 @@ class BeerControllerIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(336)));
     }
+    @Test
+    void testListBeerByNameAndStyle() throws Exception {
+        mockMvc.perform(get(BeerController.BEER_PATH)
+                        .queryParam("beerName", "IPA")
+                        .queryParam("beerStyle", "BLACK_ALE"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", is(336)));
+    }
+
+        @Test
+    void testListBeerByStyle() throws Exception {
+        mockMvc.perform(get(BeerController.BEER_PATH)
+                        .queryParam("beerStyle", "BLACK_ALE"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", is(336)));
+    }
 
     @Test
     void testPatchBeerBadName() throws Exception {
@@ -162,7 +178,7 @@ class BeerControllerIT {
 
     @Test
     void testListBeers() {
-        List<BeerDTO> dtos = beerController.listBeers(null);
+        List<BeerDTO> dtos = beerController.listBeers(null, null);
 
         assertThat(dtos.size()).isEqualTo(2413);
     }
@@ -172,7 +188,7 @@ class BeerControllerIT {
     @Test
     void testEmptyList() {
         beerRepository.deleteAll();
-        List<BeerDTO> dtos = beerController.listBeers(null);
+        List<BeerDTO> dtos = beerController.listBeers(null, null);
 
         assertThat(dtos.size()).isEqualTo(0);
     }
