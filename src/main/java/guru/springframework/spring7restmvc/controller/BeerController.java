@@ -67,11 +67,14 @@ public class BeerController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    // this method has paging and sorting.Note: page number starts from 1 not 0 and page size default is 25
     @GetMapping(value = BEER_PATH)
     public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName, 
                                     @RequestParam(required = false) BeerStyle beerStyle,    
-                                    @RequestParam(required = false) Boolean showInventory){
-        return beerService.listBeers(beerName, beerStyle, showInventory);
+                                    @RequestParam(required = false) Boolean showInventory, 
+                                    @RequestParam(required = false) Integer pageNumber, 
+                                    @RequestParam(required = false) Integer pageSize) {
+        return beerService.listBeers(beerName, beerStyle, showInventory, pageNumber, pageSize);
     }
 
 

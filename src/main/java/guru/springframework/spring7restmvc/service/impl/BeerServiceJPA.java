@@ -54,13 +54,15 @@ public class BeerServiceJPA implements BeerService {
      * @param beerName optional name filter; treated as absent when null or blank
      * @param beerStyle optional BeerStyle enum filter; when non-null, the enum's .name() is used for comparisons
      * @param showInventory if false, the quantityOnHand field in the returned BeerDTOs will be nullified
+     * @param pageNumber optional page number for pagination 
+     * @param pageSize optional page size for pagination 
      * @return list of BeerDTOs corresponding to the matching Beer entities
      *
      * Note: enumType.name() returns the exact identifier String of the enum constant as declared (for example "LAGER").
      * This is the literal enum constant name and differs from a localized or user-friendly label.
      */
     @Override
-    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle , Boolean showInventory) {
+    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize) {
         List<Beer> beerList;
 
         if (StringUtils.hasText(beerName) && beerStyle != null) {
