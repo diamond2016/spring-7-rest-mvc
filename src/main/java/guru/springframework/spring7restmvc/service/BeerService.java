@@ -12,7 +12,7 @@ import guru.springframework.spring7restmvc.model.dto.BeerStyle;
  */
 public interface BeerService {
 
-    List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle);
+    List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory);
 
     Optional<BeerDTO> getBeerById(UUID id);
 

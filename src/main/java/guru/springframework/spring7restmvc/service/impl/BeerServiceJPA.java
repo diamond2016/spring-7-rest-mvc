@@ -59,7 +59,7 @@ public class BeerServiceJPA implements BeerService {
      * This is the literal enum constant name and differs from a localized or user-friendly label.
      */
     @Override
-    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle) {
+    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle , Boolean showInventory) {
         List<Beer> beerList;
 
         if (StringUtils.hasText(beerName) && beerStyle != null) {
@@ -70,6 +70,17 @@ public class BeerServiceJPA implements BeerService {
             beerList = listBeersByName(beerName);
         } else {
             beerList = beerRepository.findAll();
+        }
+
+        // null check to avoid NPE if showInventory is not provided, false if one wants to mask inventory
+        if(showInventory != null && !showInventory) {
+            return beerList.stream()
+                    .map(beer -> {
+                        BeerDTO dto = beerMapper.beerToBeerDto(beer);
+                        dto.setQuantityOnHand(null);
+                        return dto;
+                    })
+                    .collect(Collectors.toList());
         }
 
         return beerList.stream()
