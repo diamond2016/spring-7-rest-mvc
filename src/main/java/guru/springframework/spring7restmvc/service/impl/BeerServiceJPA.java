@@ -2,6 +2,7 @@ package guru.springframework.spring7restmvc.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -28,6 +29,14 @@ import java.util.stream.Collectors;
 public class BeerServiceJPA implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
+    private static final int DEFAULT_PAGE = 0;
+    private static final int DEFAULT_PAGE_SIZE = 25;
+
+    private PageRequest buildPageRequest(Integer pageNumber, Integer pageSize) {
+        int queryPageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE : pageNumber -1; // guru wants page from 1 not 0
+        int queryPageSize = (pageSize == null || pageSize < 1 || pageSize > 1000) ? DEFAULT_PAGE_SIZE : pageSize;
+        return PageRequest.of(queryPageNumber, queryPageSize);
+    }
 
     List<Beer> listBeersByName(String beerName) {
         return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%"));
@@ -64,6 +73,8 @@ public class BeerServiceJPA implements BeerService {
     @Override
     public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize) {
         List<Beer> beerList;
+
+        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
 
         if (StringUtils.hasText(beerName) && beerStyle != null) {
             beerList = listBeersByNameAndStyle(beerName, beerStyle.name());
