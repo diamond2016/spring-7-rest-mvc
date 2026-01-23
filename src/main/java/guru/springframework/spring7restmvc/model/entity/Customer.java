@@ -13,6 +13,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -48,4 +49,7 @@ public class Customer {
     private LocalDateTime createdDate;
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    @OneToMany(mappedBy = "customer") // note use of set point to customer propoerty in BeerOrder
+    private Set<BeerOrder> beerOrders;
 }

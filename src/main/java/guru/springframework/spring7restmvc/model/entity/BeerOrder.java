@@ -1,6 +1,7 @@
 package guru.springframework.spring7restmvc.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +14,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -44,16 +47,15 @@ public class BeerOrder {
     @Size(max = 255)
     private String customerRef;
 
-    @NotNull
-    @Column(length = 36, nullable = false)
-    @JdbcTypeCode(SqlTypes.CHAR)
-    private UUID customerId;
-
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @UpdateTimestamp
     private LocalDateTime lastModifiedDate;
+
+    @ManyToOne
+    private Customer customer;
+
 
 }
