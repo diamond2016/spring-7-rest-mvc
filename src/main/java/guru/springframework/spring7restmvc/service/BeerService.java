@@ -1,8 +1,9 @@
 package guru.springframework.spring7restmvc.service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
 
 import guru.springframework.spring7restmvc.model.dto.BeerDTO;
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
@@ -12,7 +13,7 @@ import guru.springframework.spring7restmvc.model.dto.BeerStyle;
  */
 public interface BeerService {
 
-    List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize);
+    Page<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize);
 
     Optional<BeerDTO> getBeerById(UUID id);
 

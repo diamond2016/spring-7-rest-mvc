@@ -2,6 +2,7 @@ package guru.springframework.spring7restmvc.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -13,12 +14,11 @@ import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.service.BeerService;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+
 
 /**
  * Created by jt, Spring Framework Guru.
@@ -38,16 +38,16 @@ public class BeerServiceJPA implements BeerService {
         return PageRequest.of(queryPageNumber, queryPageSize);
     }
 
-    List<Beer> listBeersByName(String beerName) {
-        return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%"));
+    Page<Beer> listBeersByName(String beerName, PageRequest pageRequest) {
+        return beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%", pageRequest);
     }
-    List<Beer> listBeersByNameAndStyle(String beerName, String beerStyle) {
+    Page<Beer> listBeersByNameAndStyle(String beerName, String beerStyle, PageRequest pageRequest) {
         BeerStyle style = BeerStyle.valueOf(beerStyle.toUpperCase());
-        return new ArrayList<Beer>(beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndBeerStyle("%" + beerName + "%", style));
+        return beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndBeerStyle("%" + beerName + "%", style, pageRequest);
     }
-    List<Beer> listBeersByStyle(String beerStyle) {
+    Page<Beer> listBeersByStyle(String beerStyle, PageRequest pageRequest) {
         BeerStyle style = BeerStyle.valueOf(beerStyle.toUpperCase());
-        return new ArrayList<Beer>(beerRepository.findAllByBeerStyle(style));
+        return beerRepository.findAllByBeerStyle(style, pageRequest);
     }
 
 
@@ -71,35 +71,35 @@ public class BeerServiceJPA implements BeerService {
      * This is the literal enum constant name and differs from a localized or user-friendly label.
      */
     @Override
-    public List<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize) {
-        List<Beer> beerList;
+    public Page<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber, Integer pageSize) {
+        Page<Beer> beerPage;
 
         PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
 
         if (StringUtils.hasText(beerName) && beerStyle != null) {
-            beerList = listBeersByNameAndStyle(beerName, beerStyle.name());
+            beerPage = listBeersByNameAndStyle(beerName, beerStyle.name(), pageRequest);
         } else if (beerStyle != null && !StringUtils.hasText(beerName)) {
-            beerList = listBeersByStyle(beerStyle.name());
+            beerPage = listBeersByStyle(beerStyle.name(), pageRequest);
         } else if (StringUtils.hasText(beerName) && beerStyle == null)  {
-            beerList = listBeersByName(beerName);
+            beerPage = listBeersByName(beerName, pageRequest);
         } else {
-            beerList = beerRepository.findAll();
+            beerPage = beerRepository.findAll(pageRequest);
         }
 
         // null check to avoid NPE if showInventory is not provided, false if one wants to mask inventory
         if(showInventory != null && !showInventory) {
-            return beerList.stream()
-                    .map(beer -> {
-                        BeerDTO dto = beerMapper.beerToBeerDto(beer);
-                        dto.setQuantityOnHand(null);
-                        return dto;
-                    })
-                    .collect(Collectors.toList());
+            beerPage.forEach(beer -> beer.setQuantityOnHand(null)); 
+
+        //    return beerPage.stream()
+        //            .map(beer -> {
+        //                BeerDTO dto = beerMapper.beerToBeerDto(beer);
+        //                dto.setQuantityOnHand(null);
+        //                return dto;
+        //            })
+        //            .collect(Collectors.toList());
         }
 
-        return beerList.stream()
-                .map(beerMapper::beerToBeerDto)
-                .collect(Collectors.toList());
+        return beerPage.map(beerMapper::beerToBeerDto); // from Beer (entity) to BeerDTO to Page<BeerDTO>
     }
 
     @Override

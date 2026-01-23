@@ -2,6 +2,8 @@ package guru.springframework.spring7restmvc.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,6 @@ import guru.springframework.spring7restmvc.model.dto.BeerDTO;
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.service.BeerService;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -70,7 +71,7 @@ public class BeerController {
 
     // this method has paging and sorting.Note: page number starts from 1 not 0 and page size default is 25
     @GetMapping(value = BEER_PATH)
-    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName, 
+    public Page<BeerDTO> listBeers(@RequestParam(required = false) String beerName, 
                                     @RequestParam(required = false) BeerStyle beerStyle,    
                                     @RequestParam(required = false) Boolean showInventory, 
                                     @RequestParam(required = false) Integer pageNumber, 
