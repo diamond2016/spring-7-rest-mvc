@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -35,7 +36,10 @@ public class BeerServiceJPA implements BeerService {
     private PageRequest buildPageRequest(Integer pageNumber, Integer pageSize) {
         int queryPageNumber = (pageNumber == null || pageNumber < 0) ? DEFAULT_PAGE : pageNumber -1; // guru wants page from 1 not 0
         int queryPageSize = (pageSize == null || pageSize < 1 || pageSize > 1000) ? DEFAULT_PAGE_SIZE : pageSize;
-        return PageRequest.of(queryPageNumber, queryPageSize);
+
+        // add sort on beer name ascending
+        Sort sort = Sort.by("beerName").ascending();
+        return PageRequest.of(queryPageNumber, queryPageSize, sort);
     }
 
     Page<Beer> listBeersByName(String beerName, PageRequest pageRequest) {
