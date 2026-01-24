@@ -57,5 +57,12 @@ public class BeerOrder {
     @ManyToOne
     private Customer customer;
 
+    @OneToMany(mappedBy = "beerOrder")
+    private Set<BeerOrderLine> beerOrderLines;
+    
+    public boolean isNew() {
+        return this.id == null;
+    }
+
 
 }

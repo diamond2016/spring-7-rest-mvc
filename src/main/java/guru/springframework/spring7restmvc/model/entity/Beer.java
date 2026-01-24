@@ -18,6 +18,7 @@ import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -69,5 +70,8 @@ public class Beer {
     private LocalDateTime createdDate;
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    @OneToMany(mappedBy = "beer")
+    private Set<BeerOrderLine> beerOrderLines;
 }
 
