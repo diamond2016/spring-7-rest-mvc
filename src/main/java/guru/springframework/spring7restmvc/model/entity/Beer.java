@@ -18,6 +18,7 @@ import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -79,6 +80,19 @@ public class Beer {
         joinColumns = @jakarta.persistence.JoinColumn(name = "beer_id"),
         inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "category_id")
     )
-    private Set<Category> categories;
+    
+    @Builder.Default
+    private Set<Category> categories = new HashSet<>();
+
+    // mthod for many to many starting from this side (beer is owning side, we consider categories somewhat static set)
+    public void addCategory(Category category) {
+        this.categories.add(category);
+        category.getBeers().add(this);
+    }
+    // this is to remove the relationship from both sides not the category itself
+    public void removeCategory(Category category) {
+        this.categories.remove(category);
+        category.getBeers().remove(this);
+    }
 }
 

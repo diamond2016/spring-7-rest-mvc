@@ -11,6 +11,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import guru.springframework.spring7restmvc.model.dto.BeerCsvRecord;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
+import guru.springframework.spring7restmvc.repository.CategoryRepository;
 import guru.springframework.spring7restmvc.repository.CustomerRepository;
 import guru.springframework.spring7restmvc.service.BeerCsvService;
 
@@ -33,6 +34,10 @@ class BootstrapDataTest {
 
     @MockitoBean
     BeerCsvService beerCsvService;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
     BootstrapData bootstrapData;
 
     @BeforeEach
@@ -42,7 +47,7 @@ class BootstrapDataTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        bootstrapData = new BootstrapData(beerRepository, customerRepository, beerCsvService);
+        bootstrapData = new BootstrapData(beerRepository, customerRepository, beerCsvService, categoryRepository);
     }
 
     @Test
@@ -51,6 +56,7 @@ class BootstrapDataTest {
 
         assertThat(beerRepository.count()).isEqualTo(3);
         assertThat(customerRepository.count()).isEqualTo(3);
+        assertThat(categoryRepository.count()).isEqualTo(1);
     }
 }
 

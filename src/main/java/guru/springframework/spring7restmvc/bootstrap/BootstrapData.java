@@ -9,9 +9,11 @@ import org.springframework.util.ResourceUtils;
 import guru.springframework.spring7restmvc.model.dto.BeerCsvRecord;
 import guru.springframework.spring7restmvc.model.dto.BeerStyle;
 import guru.springframework.spring7restmvc.model.entity.Beer;
+import guru.springframework.spring7restmvc.model.entity.Category;
 import guru.springframework.spring7restmvc.model.entity.Customer;
 import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.repository.CustomerRepository;
+import guru.springframework.spring7restmvc.repository.CategoryRepository;
 import guru.springframework.spring7restmvc.service.BeerCsvService;
 
 
@@ -30,6 +32,7 @@ public class BootstrapData implements CommandLineRunner {
     private final BeerRepository beerRepository;
     private final CustomerRepository customerRepository;
     private final BeerCsvService beerCsvService;
+    private final CategoryRepository categoryRepository;
 
     @Transactional   // if errors in loading rollback
     @Override
@@ -37,6 +40,7 @@ public class BootstrapData implements CommandLineRunner {
         loadBeerData();
         loadCsvData();
         loadCustomerData();
+        loadCategoryData();
     }
 
     private void loadBeerData() {
@@ -148,6 +152,19 @@ public class BootstrapData implements CommandLineRunner {
                 throw new IllegalArgumentException("Error in creating customers from build()");
             }
             customerRepository.saveAll(listCustomers);
+        }
+    }
+
+    private void loadCategoryData() {
+
+        Category category1 = Category.builder()
+                .description("Category 1")
+                .version(1)
+                .build();
+        try {
+                categoryRepository.save(category1);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

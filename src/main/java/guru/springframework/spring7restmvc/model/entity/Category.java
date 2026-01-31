@@ -56,5 +56,25 @@ public class Category {
         joinColumns = @jakarta.persistence.JoinColumn(name = "category_id"),
         inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "beer_id")
     )
-    private Set<Beer> beers;
+    
+    @Builder.Default
+    private Set<Beer> beers = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        if (!super.equals(o)) return false;
+
+        Category category = (Category) o;
+
+        return getDescription() != null ? getDescription().equals(category.getDescription()) : category.getDescription() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        return result;
+    }
 }
