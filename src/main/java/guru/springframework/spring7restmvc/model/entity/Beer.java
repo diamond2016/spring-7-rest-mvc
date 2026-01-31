@@ -73,5 +73,12 @@ public class Beer {
 
     @OneToMany(mappedBy = "beer")
     private Set<BeerOrderLine> beerOrderLines;
+
+    @ManyToMany
+    @JoinTable(name = "beer_category",
+        joinColumns = @jakarta.persistence.JoinColumn(name = "beer_id"),
+        inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories;
 }
 
