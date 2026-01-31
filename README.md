@@ -28,3 +28,4 @@ This is the architecture up to now:
 - 27.11.2025 Make refactor for a new archtecture see doc. Release 01.01.00
 - 12.12.2025 OpenCsv for CSV import/export and flyway migration scripts for both h2/mysql databases. 
 - 24.01.2026 introduced some relations between entities (OneToMany, ManyToOne)
+- 30.01.2026 introduce the many to many relationship category - beer
