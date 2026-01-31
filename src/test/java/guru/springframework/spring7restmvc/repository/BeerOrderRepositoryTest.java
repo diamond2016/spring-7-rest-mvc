@@ -86,7 +86,10 @@ class BeerOrderRepositoryTest {
             .build();
 
         // with flush to ensure it hits the DB and popolates also the inverse relation customer->beerOrders
-        BeerOrder saved = beerOrderRepository.saveAndFlush(order);
+        // BeerOrder saved = beerOrderRepository.saveAndFlush(order);
+        // we can use save and not saveAndFlush having modified entity BeerOrder to manage both sides of the relationship
+        BeerOrder saved = beerOrderRepository.save(order);
+        // from here is important to use saved not order because this is object with relations populated
         assertNotNull(saved, "Saved BeerOrder should not be null");
         assertNotNull(saved.getId(), "Saved BeerOrder should have an id");
         System.out.println("Saved BeerOrder ID: " + saved.getId());

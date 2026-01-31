@@ -29,8 +29,19 @@ import lombok.Setter;
 @Builder
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class BeerOrder {
+
+    // removbe @AllArgsConstructor to manage both sides of the relationship in setCustomer
+    public BeerOrder(UUID id, Integer version, String customerRef, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Customer customer, Set<BeerOrderLine> beerOrderLines) {
+        this.id = id;
+        this.version = version;
+        this.customerRef = customerRef;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.setCustomer(customer);
+        this.beerOrderLines = beerOrderLines;
+    }
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -55,6 +66,12 @@ public class BeerOrder {
 
     @ManyToOne
     private Customer customer;
+
+    // override default by Lombok in order to manage both sides of the relationship. Must drop @AllArgsConstructor
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.getBeerOrders().add(this);
+    }
 
     @OneToMany(mappedBy = "beerOrder")
     private Set<BeerOrderLine> beerOrderLines;

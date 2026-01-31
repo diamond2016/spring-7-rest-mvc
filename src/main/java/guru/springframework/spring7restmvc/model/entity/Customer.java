@@ -13,6 +13,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -50,6 +51,8 @@ public class Customer {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
+    // override default constructor behavior for builder (to enforce relationship customer->beerOrders)
+    @Builder.Default
     @OneToMany(mappedBy = "customer") // note use of set point to customer propoerty in BeerOrder
-    private Set<BeerOrder> beerOrders;
+    private Set<BeerOrder> beerOrders = new HashSet<>();
 }
