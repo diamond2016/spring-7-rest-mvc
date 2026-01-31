@@ -77,4 +77,26 @@ class BeerOrderRepositoryTest {
         assertTrue(fetched.isPresent(), "Saved entity should be retrievable by id");
         assertEquals(saved.getId(), fetched.get().getId(), "Retrieved entity id should match saved id");
     }
+
+    @Test
+    void testBeerOrders() {
+        BeerOrder order = BeerOrder.builder()
+            .customerRef("ref of Customer order")
+            .customer(testCustomer)
+            .build();
+
+        // with flush to ensure it hits the DB and popolates also the inverse relation customer->beerOrders
+        BeerOrder saved = beerOrderRepository.saveAndFlush(order);
+        assertNotNull(saved, "Saved BeerOrder should not be null");
+        assertNotNull(saved.getId(), "Saved BeerOrder should have an id");
+        System.out.println("Saved BeerOrder ID: " + saved.getId());
+        System.out.println("Associated Customer Name: " + saved.getCustomer().getName());
+        assertEquals(testCustomer.getId(), saved.getCustomer().getId(), "Associated Customer ID should match testCustomer ID");
+        // Now check that the customer's beerOrders set includes this order
+        Customer fetchedCustomer = customerRepository.findById(testCustomer.getId()).orElse(null);
+        assertNotNull(fetchedCustomer, "Fetched Customer should not be null");
+        assertNotNull(fetchedCustomer.getBeerOrders(), "Fetched Customer's beerOrders should not be null");
+        assertTrue(fetchedCustomer.getBeerOrders().stream()
+            .anyMatch(bo -> bo.getId().equals(saved.getId())), "Customer's beerOrders should include the saved BeerOrder");
+    }
 }
