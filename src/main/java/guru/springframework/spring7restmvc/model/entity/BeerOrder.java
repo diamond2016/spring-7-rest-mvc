@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +31,6 @@ import lombok.Setter;
 @Builder
 @Entity
 @NoArgsConstructor
-
 public class BeerOrder {
 
     public BeerOrder(UUID id, Integer version, String customerRef, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Customer customer, 
@@ -42,7 +42,7 @@ public class BeerOrder {
         this.lastModifiedDate = lastModifiedDate;
         this.setCustomer(customer);
         this.beerOrderLines = beerOrderLines;
-        this.beerOrderShipment = beerOrderShipment;
+        this.setBeerOrderShipment(beerOrderShipment);
     }
 
     @Id
@@ -78,8 +78,13 @@ public class BeerOrder {
     @OneToMany(mappedBy = "beerOrder")
     private Set<BeerOrderLine> beerOrderLines;
 
-    @OneToOne
-    private BeerOrderShipment beerOrderShipment;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private BeerOrderShipment beerOrderShipment; //save BeerOrderShipment when saving BeerOrder without repository
+
+    public void setBeerOrderShipment(BeerOrderShipment beerOrderShipment) {
+        this.beerOrderShipment = beerOrderShipment;
+        beerOrderShipment.setBeerOrder(this);
+    }
 
     public boolean isNew() {
         return this.id == null;

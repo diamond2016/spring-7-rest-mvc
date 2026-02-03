@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import guru.springframework.spring7restmvc.bootstrap.BootstrapData;
 import guru.springframework.spring7restmvc.model.entity.Beer;
 import guru.springframework.spring7restmvc.model.entity.BeerOrder;
+import guru.springframework.spring7restmvc.model.entity.BeerOrderShipment;
 import guru.springframework.spring7restmvc.model.entity.Customer;
 import guru.springframework.spring7restmvc.service.impl.BeerCsvServiceImpl;
 
@@ -80,9 +81,12 @@ class BeerOrderRepositoryTest {
 
     @Test
     void testBeerOrders() {
+
         BeerOrder order = BeerOrder.builder()
             .customerRef("ref of Customer order")
             .customer(testCustomer)
+            .beerOrderShipment(BeerOrderShipment.builder()
+                .trackingNumber("1234567890").build())
             .build();
 
         // with flush to ensure it hits the DB and popolates also the inverse relation customer->beerOrders
@@ -101,5 +105,8 @@ class BeerOrderRepositoryTest {
         assertNotNull(fetchedCustomer.getBeerOrders(), "Fetched Customer's beerOrders should not be null");
         assertTrue(fetchedCustomer.getBeerOrders().stream()
             .anyMatch(bo -> bo.getId().equals(saved.getId())), "Customer's beerOrders should include the saved BeerOrder");
+        assertTrue(saved.getBeerOrderShipment() != null, "Saved BeerOrder should have a BeerOrderShipment");
+        assertEquals("1234567890", saved.getBeerOrderShipment().getTrackingNumber(), "BeerOrderShipment tracking number should match");
+        assertEquals(saved.getBeerOrderShipment().getBeerOrder().getId(), saved.getId(), "Retrieved entity's ID should match saved entity's customer ID");
     }
 }
