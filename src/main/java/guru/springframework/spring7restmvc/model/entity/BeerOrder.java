@@ -16,9 +16,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
+// import lombok.AllArgsConstructor; // removed to manage both sides of the relationship in setCustomer
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +33,8 @@ import lombok.Setter;
 
 public class BeerOrder {
 
-    // removbe @AllArgsConstructor to manage both sides of the relationship in setCustomer
-    public BeerOrder(UUID id, Integer version, String customerRef, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Customer customer, Set<BeerOrderLine> beerOrderLines) {
+    public BeerOrder(UUID id, Integer version, String customerRef, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Customer customer, 
+        Set<BeerOrderLine> beerOrderLines, BeerOrderShipment beerOrderShipment) {
         this.id = id;
         this.version = version;
         this.customerRef = customerRef;
@@ -41,6 +42,7 @@ public class BeerOrder {
         this.lastModifiedDate = lastModifiedDate;
         this.setCustomer(customer);
         this.beerOrderLines = beerOrderLines;
+        this.beerOrderShipment = beerOrderShipment;
     }
 
     @Id
@@ -66,7 +68,7 @@ public class BeerOrder {
 
     @ManyToOne
     private Customer customer;
-
+     
     // override default by Lombok in order to manage both sides of the relationship. Must drop @AllArgsConstructor
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -75,7 +77,10 @@ public class BeerOrder {
 
     @OneToMany(mappedBy = "beerOrder")
     private Set<BeerOrderLine> beerOrderLines;
-    
+
+    @OneToOne
+    private BeerOrderShipment beerOrderShipment;
+
     public boolean isNew() {
         return this.id == null;
     }
