@@ -32,6 +32,8 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
 
@@ -163,6 +165,7 @@ class BeerControllerTest {
         given(beerService.listBeers(null, null, null, null, null)).willReturn(beerServiceImpl.listBeers(null, null, null, null, null));
 
         mockMvc.perform(get(BeerController.BEER_PATH)
+                    .with(httpBasic("user1", "password"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

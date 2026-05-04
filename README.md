@@ -29,4 +29,4 @@ This is the architecture up to now:
 - 12.12.2025 OpenCsv for CSV import/export and flyway migration scripts for both h2/mysql databases. 
 - 24.01.2026 Introduced some relations between entities (OneToMany, ManyToOne)
 - 30.01.2026 Introduced the many to many relationship category - beer
-- 04.05.2026 Added support for spring security (maven)
+- 04.05.2026 Added support for spring security and spring secutity test (maven) and modified tests for security (Basic)
