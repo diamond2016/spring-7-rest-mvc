@@ -23,3 +23,7 @@ Test compilation now succeeds without errors
 Application starts successfully on port 8080 with Spring Boot 4.0.5 and Java 25
 
 **All dependencies (spring-boot-starter-webmvc-test, spring-boot-starter-data-jpa-test, spring-boot-test-autoconfigure) are properly included in pom.xml**
+
+NEXT STEP
+go on with SpringSecurityConfig wich creates problems. Even testListBeers does not run. Ok solved with @EnableWebSecurity
+now problem with "object mapper" probably to upgrade, see the target test testListBeers() in BeerControllerTest (No qualifying bean of type 'com.fasterxml.jackson.databind.ObjectMapper' available)
