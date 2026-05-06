@@ -74,11 +74,10 @@ public class BootstrapData implements CommandLineRunner {
                     .createdDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
-        List<Beer> listBeers = List.of(beer1, beer2, beer3);
-        if (listBeers == null) {
-            throw new IllegalArgumentException("Eror in creating beers from build()");
-        }
-        beerRepository.saveAll(listBeers);
+        
+        beerRepository.save(beer1);
+        beerRepository.save(beer2);
+        beerRepository.save(beer3);
         }
 
     }

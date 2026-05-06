@@ -14,6 +14,8 @@ import guru.springframework.spring7restmvc.repository.BeerRepository;
 import guru.springframework.spring7restmvc.repository.CategoryRepository;
 import guru.springframework.spring7restmvc.repository.CustomerRepository;
 import guru.springframework.spring7restmvc.service.BeerCsvService;
+import org.flywaydb.core.Flyway;
+import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,10 +40,16 @@ class BootstrapDataTest {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    DataSource dataSource;
+
     BootstrapData bootstrapData;
 
     @BeforeEach
     void setUp() {
+        // run Flyway migrations against the test DataSource so the H2 DB is populated
+        // restrict locations to the H2-specific migrations to avoid duplicate versions
+        Flyway.configure().locations("classpath:db/migration/h2").dataSource(dataSource).load().migrate();
         try {
         Mockito.when(beerCsvService.convertCSV(Mockito.any(File.class))).thenReturn(new ArrayList<BeerCsvRecord>());
         } catch (Exception e) {
@@ -52,7 +60,7 @@ class BootstrapDataTest {
 
     @Test
     void Testrun() throws Exception {
-        bootstrapData.run();
+         bootstrapData.run((String[]) null);
 
         assertThat(beerRepository.count()).isEqualTo(3);
         assertThat(customerRepository.count()).isEqualTo(3);
