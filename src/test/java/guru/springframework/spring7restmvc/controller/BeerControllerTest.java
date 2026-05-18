@@ -20,7 +20,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.web.servlet.MvcResult;
-
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +36,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @WebMvcTest(BeerController.class)
 @Import(SpringSecurityConfig.class)
@@ -48,6 +49,9 @@ class BeerControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    WebApplicationContext wac;
+    
     @MockitoBean
     BeerService beerService;
 
@@ -64,6 +68,9 @@ class BeerControllerTest {
     @BeforeEach
     void setUp() {
         beerServiceImpl = new BeerServiceImpl();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac)
+                    .apply(springSecurity())        // activate our SpringSecutityConfig in tests
+                    .build();
     }
 
     @Test
